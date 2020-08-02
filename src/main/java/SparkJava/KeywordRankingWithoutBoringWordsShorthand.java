@@ -3,17 +3,18 @@ package SparkJava;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.spark.SparkConf;
+import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.sql.SparkSession;
+import scala.Tuple2;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class FlatMapAndFilterExample {
+public class KeywordRankingWithoutBoringWordsShorthand {
     public static void main(String[] args) {
-        Logger.getLogger("org.apache").setLevel(Level.ERROR);// to filter out only errors in the console
+        Logger.getLogger("org.apache").setLevel(Level.ERROR);// to filter out only Warning and errors in the console
 
         /**----------------------------------------------------------------------------------------------------------------------------
          * Creating a Spark configuration as unlike Scala we do not have a default spark context created as the start of the session
@@ -24,7 +25,7 @@ public class FlatMapAndFilterExample {
          * Question: how will the functionality vary if we use Spark Context rather than a Java Spark Context
          * ----------------------------------------------------------------------------------------------------------------------------
          * */
-        SparkConf conf = new SparkConf().setAppName("MySparkProject").setMaster("local[*]");
+        SparkConf conf = new SparkConf().setAppName("MySparkProject").setMaster("local");
         JavaSparkContext sc = new JavaSparkContext(conf);
 
         /**----------------------------------------------------------------------------------------------------------------------
@@ -48,24 +49,31 @@ public class FlatMapAndFilterExample {
          * ----------------------------------------------------------------------------------------------------------------------
          */
 
-        List<String> inputData = new ArrayList<>();//to create a list of values in order to pass to Order
-        inputData.add("ERROR: Tuesday 4 September 0405");
-        inputData.add("WARN: Tuesday 4 September 0406");
-        inputData.add("ERROR: Tuesday 4 September 0408");
-        inputData.add("FATAL: Tuesday 4 September 1632");
-        inputData.add("ERROR: Tuesday 4 September 1854");
-        inputData.add("WARN: Tuesday 4 September 1942");
+        JavaRDD<String> myRDD = sc.textFile("hdfs://localhost:9000/data/input/input.txt");
 
-        JavaRDD<String> myRDD = sc.parallelize(inputData);
+        JavaRDD<String> stringsOnly = myRDD
+                .map(line -> line.replaceAll("[^A-Za-z\\s]","")
+                        .toLowerCase())
+                .filter(line -> line
+                        .trim()
+                        .length() > 0)
+                .flatMap(line -> Arrays.asList(line.split(" "))
+                        .iterator())
+                .filter(word -> word
+                        .trim()
+                        .length() >0)
+                .filter(word -> Util
+                        .isNotBoring(word));
 
-        //Since there is no method in String that returns a collection of strings, we will have to use Array
-        //Array has a function called asList, we can use that to create an Array list, but it still keeps throwing a compile error
-        //The API specifically demands that we return an object of type iterator, that is why we are using .iterator() function
-        JavaRDD<String> words = myRDD.flatMap(value -> Arrays.asList(value.split(" ")).iterator());
 
-        JavaRDD<String> filteredRDD = words.filter(word -> word.length() > 1);
-        System.out.println(":::::::::::::Output::::::::::::::");
-        filteredRDD.collect().forEach(System.out::println);
+        JavaPairRDD<Long,String> result = stringsOnly
+                .mapToPair(word -> new Tuple2<>(word,1L))
+                .reduceByKey((value1,value2) -> value1+value2)
+                .mapToPair(tuple -> new Tuple2<>(tuple._2,tuple._1))
+                .sortByKey(false);
+
+        List<Tuple2<Long,String>> top10 = result.take(10);
+        top10.forEach(System.out::println);
 
         sc.close();//to close the spark context at the end of the program
         Spark.close();//to close the spark session at the end of the program

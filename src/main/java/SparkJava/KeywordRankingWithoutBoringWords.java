@@ -3,12 +3,18 @@ package SparkJava;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.spark.SparkConf;
+import org.apache.spark.api.java.JavaPairRDD;
+import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.sql.SparkSession;
+import scala.Tuple2;
 
-public class KeywordRankingWoithoutBoringWords {
+import java.util.Arrays;
+import java.util.List;
+
+public class KeywordRankingWithoutBoringWords {
     public static void main(String[] args) {
-        Logger.getLogger("org.apache").setLevel(Level.ERROR);// to filter out only errors in the console
+        Logger.getLogger("org.apache").setLevel(Level.ERROR);// to filter out only Warning and errors in the console
 
         /**----------------------------------------------------------------------------------------------------------------------------
          * Creating a Spark configuration as unlike Scala we do not have a default spark context created as the start of the session
@@ -19,7 +25,7 @@ public class KeywordRankingWoithoutBoringWords {
          * Question: how will the functionality vary if we use Spark Context rather than a Java Spark Context
          * ----------------------------------------------------------------------------------------------------------------------------
          * */
-        SparkConf conf = new SparkConf().setAppName("MySparkProject").setMaster("local[*]");
+        SparkConf conf = new SparkConf().setAppName("MySparkProject").setMaster("local");
         JavaSparkContext sc = new JavaSparkContext(conf);
 
         /**----------------------------------------------------------------------------------------------------------------------
@@ -42,6 +48,29 @@ public class KeywordRankingWoithoutBoringWords {
          * comment: the 4th parameter is comment of the attribute
          * ----------------------------------------------------------------------------------------------------------------------
          */
+
+        JavaRDD<String> myRDD = sc.textFile("hdfs://localhost:9000/data/input/input.txt");
+
+        JavaRDD<String> stringsOnly = myRDD.map(line -> line.replaceAll("[^A-Za-z\\s]","").toLowerCase());
+
+        JavaRDD<String> withoutBlankLine = stringsOnly.filter(line -> line.trim().length() > 0);
+
+        JavaRDD<String> flattened = withoutBlankLine.flatMap(line -> Arrays.asList(line.split(" ")).iterator());
+
+        JavaRDD<String> trimmed = flattened.filter(word -> word.trim().length() >0);
+
+        JavaRDD<String> withoutBoring = trimmed.filter(word -> Util.isNotBoring(word));
+
+        JavaPairRDD<String,Long> interestingWords = withoutBoring.mapToPair(word -> new Tuple2<>(word,1L));
+
+        JavaPairRDD<String,Long> counts = interestingWords.reduceByKey((value1,value2) -> value1+value2);
+
+        JavaPairRDD<Long,String> switched = counts.mapToPair(tuple -> new Tuple2<>(tuple._2,tuple._1));
+
+        JavaPairRDD<Long,String> sorted = switched.sortByKey(false);
+
+        List<Tuple2<Long,String>> result = sorted.take(10);
+        result.forEach(System.out::println);
 
         sc.close();//to close the spark context at the end of the program
         Spark.close();//to close the spark session at the end of the program

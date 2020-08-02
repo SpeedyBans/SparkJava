@@ -2,8 +2,8 @@ package SparkJava;
 
 public class SquareRoot {
 
-    private int inputNumber;
-    private double squareRoot;
+    private final int inputNumber;
+    private final double squareRoot;
 
     public SquareRoot(int i) {
         this.inputNumber = i;

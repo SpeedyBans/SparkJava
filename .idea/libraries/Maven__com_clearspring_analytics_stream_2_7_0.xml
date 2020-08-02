@@ -8,6 +8,8 @@
     </JAVADOC>
     <SOURCES>
       <root url="jar://$MAVEN_REPOSITORY$/com/clearspring/analytics/stream/2.7.0/stream-2.7.0-sources.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../spark/jars" />
     </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/../../spark/jars" recursive="false" type="SOURCES" />
   </library>
 </component>

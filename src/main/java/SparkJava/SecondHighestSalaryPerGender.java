@@ -5,12 +5,10 @@ import org.apache.log4j.Logger;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
-import org.apache.spark.sql.catalyst.expressions.RowNumber;
 import org.apache.spark.sql.expressions.Window;
 import org.apache.spark.sql.expressions.WindowSpec;
 import org.apache.spark.sql.functions;
 import org.apache.spark.sql.types.StructType;
-import org.glassfish.hk2.api.Rank;
 
 public class SecondHighestSalaryPerGender {
     public static void main(String[] s)

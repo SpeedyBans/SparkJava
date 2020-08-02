@@ -7,11 +7,8 @@ import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.sql.SparkSession;
-import org.apache.spark.sql.catalyst.plans.logical.LogicalPlan;
 import scala.Tuple2;
 
-import javax.xml.ws.LogicalMessage;
-import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.List;
 

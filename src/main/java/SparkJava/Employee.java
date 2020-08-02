@@ -1,7 +1,5 @@
 package SparkJava;
 
-import scala.Int;
-
 import java.io.Serializable;
 
 public class Employee implements Serializable
