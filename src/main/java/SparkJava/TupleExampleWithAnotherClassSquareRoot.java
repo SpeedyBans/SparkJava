@@ -1,6 +1,5 @@
 package SparkJava;
 
-import com.google.inject.internal.cglib.proxy.$FixedValue;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.spark.SparkConf;

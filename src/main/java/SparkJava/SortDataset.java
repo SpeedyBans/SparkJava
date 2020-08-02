@@ -1,6 +1,5 @@
 package SparkJava;
 
-import breeze.linalg.Axis;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.spark.sql.Dataset;

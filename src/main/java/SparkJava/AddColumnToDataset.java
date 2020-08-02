@@ -1,15 +1,11 @@
 package SparkJava;
 
-import com.google.inject.internal.util.$Function;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.apache.spark.SparkConf;
-import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.functions;
-import org.stringtemplate.v4.ST;
 
 public class AddColumnToDataset {
     public static void main(String[] s)
