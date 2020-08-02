@@ -75,6 +75,10 @@ public class KeywordRankingWithoutBoringWordsShorthand {
         List<Tuple2<Long,String>> top10 = result.take(10);
         top10.forEach(System.out::println);
 
+        //result.foreach(word -> System.out.println(word));
+
+        //System.out.println("There are "+result.getNumPartitions()+" partitions");
+
         sc.close();//to close the spark context at the end of the program
         Spark.close();//to close the spark session at the end of the program
         //We should keep the close function inside a final block but since we are not working on a complex code, its ok to add at the end of the program too
