@@ -56,9 +56,9 @@
       <recent name="SparkJava" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.KeywordRankingWithoutBoringWordsShorthand">
-    <configuration name="FlatMapAndFilterExample" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="SparkJava.FlatMapAndFilterExample" />
+  <component name="RunManager" selected="Application.LeftJoinExampleWithOptional">
+    <configuration name="InnerJoinExample" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="SparkJava.InnerJoinExample" />
       <module name="SparkJava" />
       <extension name="coverage">
         <pattern>
@@ -96,6 +96,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="LeftJoinExampleWithOptional" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="SparkJava.LeftJoinExampleWithOptional" />
+      <module name="SparkJava" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="SparkJava.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="PairRDDExampleCountLogWarnErrorFatalShorthand" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="SparkJava.PairRDDExampleCountLogWarnErrorFatalShorthand" />
       <module name="SparkJava" />
@@ -109,26 +122,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WordCountShortHand" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="SparkJava.WordCountShortHand" />
-      <module name="SparkJava" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="SparkJava.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.LeftJoinExampleWithOptional" />
+        <item itemvalue="Application.InnerJoinExample" />
         <item itemvalue="Application.KeywordRankingWithoutBoringWordsShorthand" />
         <item itemvalue="Application.PairRDDExampleCountLogWarnErrorFatalShorthand" />
         <item itemvalue="Application.KeywordRankingWithoutBoringWords" />
-        <item itemvalue="Application.FlatMapAndFilterExample" />
-        <item itemvalue="Application.WordCountShortHand" />
       </list>
     </recent_temporary>
   </component>
@@ -168,22 +168,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="539" y="154" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1596398929978" />
-    <state width="1493" height="254" key="GridCell.Tab.0.bottom" timestamp="1596405994996">
+    <state width="1537" height="768" key="GridCell.Tab.0.bottom" timestamp="1596565707519">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="254" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1596405994996" />
-    <state width="1493" height="254" key="GridCell.Tab.0.center" timestamp="1596405994996">
+    <state width="1537" height="768" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1596565707519" />
+    <state width="1537" height="768" key="GridCell.Tab.0.center" timestamp="1596565707519">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="254" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1596405994996" />
-    <state width="1493" height="254" key="GridCell.Tab.0.left" timestamp="1596405994996">
+    <state width="1537" height="768" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1596565707519" />
+    <state width="1537" height="768" key="GridCell.Tab.0.left" timestamp="1596565707519">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="254" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1596405994996" />
-    <state width="1493" height="254" key="GridCell.Tab.0.right" timestamp="1596405994996">
+    <state width="1537" height="768" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1596565707519" />
+    <state width="1537" height="768" key="GridCell.Tab.0.right" timestamp="1596565707519">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="254" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1596405994996" />
+    <state width="1537" height="768" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1596565707519" />
     <state width="1493" height="254" key="GridCell.Tab.1.bottom" timestamp="1596405994996">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -208,6 +208,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="534" y="301" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1536.824@0.0.1536.824" timestamp="1596398644599" />
+    <state x="482" y="0" width="572" height="824" key="find.popup" timestamp="1596564178029">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="482" y="0" width="572" height="824" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1596564178029" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/SparkJava$KeywordRankingWithoutBoringWords.ic" NAME="KeywordRankingWithoutBoringWords Coverage Results" MODIFIED="1596397729058" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
