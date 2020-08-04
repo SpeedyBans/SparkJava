@@ -77,7 +77,7 @@ public class KeywordRankingWithoutBoringWordsShorthand {
 
         //result.foreach(word -> System.out.println(word));
 
-        //System.out.println("There are "+result.getNumPartitions()+" partitions");
+        System.out.println("There are "+result.getNumPartitions()+" partitions");
 
         sc.close();//to close the spark context at the end of the program
         Spark.close();//to close the spark session at the end of the program
