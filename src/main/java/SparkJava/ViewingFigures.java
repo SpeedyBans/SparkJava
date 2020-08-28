@@ -1,4 +1,22 @@
 package SparkJava;
+/**
+ *                            -----------------------------------------------------
+ *                            ---------Weighted Course View Ratio Process----------
+ *                            -----------------------------------------------------
+ *                            ---------------PROBLEM STATEMENT:--------------------
+ *                            -----------------------------------------------------
+ * Get the list of programs are popular and which ones are not popular so that we can charge Royalty fees for the most viewed courses
+ * Raw data that we are using with are:
+ * 1. View Data: log of viewings which user ID and Chapter ID
+ * 2. Chapter Data: this is the mapping of Chapter ID and the Course ID
+ * 3. Title data: This is the mapping of Course ID and the Course Title
+ *
+ * We want to know which courses are popular sort the data based on the total of below scoring system:
+ * 1. If a user watches more than 90% of the course, the course should get 10 points
+ * 2. If a user watches >50% but <90%, the score should be 4
+ * 3. If a user watches >20% but <50%, the score should be 2
+ * 4. If a user watches <20%, the score should be 0
+ * */
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +29,7 @@ import org.apache.spark.api.java.JavaSparkContext;
 
 import scala.Tuple2;
 
-/**
- * This class is used in the chapter late in the course where we analyse viewing figures.
- * You can ignore until then.
- */
+
 public class ViewingFigures
 {
 	@SuppressWarnings("resource")
@@ -26,8 +41,8 @@ public class ViewingFigures
 		SparkConf conf = new SparkConf().setAppName("startingSpark").setMaster("local[*]");
 		JavaSparkContext sc = new JavaSparkContext(conf);
 		
-		// Use true to use hardcoded data identical to that in the PDF guide.
-		boolean testMode = true;
+		// Use true to use hardcoded data and false for actual data.
+		boolean testMode = false;
 		
 		JavaPairRDD<Integer, Integer> viewData = setUpViewDataRdd(sc, testMode);
 		JavaPairRDD<Integer, Integer> chapterData = setUpChapterDataRdd(sc, testMode);
@@ -40,11 +55,73 @@ public class ViewingFigures
 		
 		//to remove any duplicate views
 		viewData = viewData.distinct();
+		//System.out.println("ViewDataRDD:");
+		//viewData.collect().forEach(System.out::println);
 		
-		System.out.println("ViewDataRDD:");
-		viewData.collect().forEach(System.out::println);
-		System.out.println("ChapterRDD:");
-		chapterRDD.collect().forEach(System.out::println);
+		//Step2-Get the course ID into the RDD
+		viewData = viewData.mapToPair(line -> new Tuple2<>(line._2,line._1));
+		//System.out.println("ViewDataRDD:");
+		//viewData.collect().forEach(System.out::println);
+		
+		JavaPairRDD<Integer,Tuple2<Integer,Integer>> joinedRDD = viewData.join(chapterData);
+		//System.out.println("joinedRDD:");
+		//joinedRDD.collect().forEach(System.out::println);
+		
+		//Step3-drop chapter ID, count how many chapters of course each user has watched
+		JavaPairRDD<Tuple2<Integer,Integer>,Long> step3 = joinedRDD.mapToPair( row -> {
+			Integer userID = row._2._1;
+			Integer courseID = row._2._2;
+			return new Tuple2<>(new Tuple2<>(userID,courseID),1L);
+		});
+		//System.out.println("step3:");
+		//step3.collect().forEach(System.out::println);
+		
+		//Step4-count how many views for each user per course
+		JavaPairRDD<Tuple2<Integer,Integer>,Long> step4 = step3.reduceByKey((value1,value2) -> value1 + value2 );
+		//System.out.println("step4:");
+		//step4.collect().forEach(System.out::println);
+		
+		//Step5-drop the user ID
+		JavaPairRDD<Integer,Long> step5 = step4.mapToPair(row -> new Tuple2<>(row._1._2,row._2));
+		//System.out.println("step5:");
+		//step5.collect().forEach(System.out::println);
+		
+		//Step6-how many chapters per course and then join them with no of view per course
+		JavaPairRDD<Integer,Tuple2<Long,Integer>> step6 = step5.join(chapterRDD);
+		//System.out.println("step6:");
+		//step6.collect().forEach(System.out::println);
+		
+		//Step7-convert the percentage
+		JavaPairRDD<Integer,Double> step7 = step6.mapValues(value -> (double) value._1/value._2);
+		//System.out.println("step7:");
+		//step7.collect().forEach(System.out::println);
+		
+		//Step8-Convert the percentage to scores
+		JavaPairRDD<Integer,Long> step8 = step7.mapValues(value -> {
+			if(value>0.9) return 10l;
+			if(value>0.5) return 4L;
+			if(value>0.25) return 2L;
+			return 0L;
+		});
+		//System.out.println("step8:");
+		//step8.collect().forEach(System.out::println);
+		
+		//Step9-Join titles data and create final scores and sor the result on score
+		step8 = step8.reduceByKey((val1,val2) -> val1+val2);
+		//System.out.println("step8:");
+		//step8.collect().forEach(System.out::println);
+		
+		JavaPairRDD<Integer,Tuple2<Long,String>> step9 = step8.join(titlesData);
+		//System.out.println("step9:");
+		//step9.collect().forEach(System.out::println);
+		
+		JavaPairRDD<Long,String>step10 = step9.mapToPair(row -> new Tuple2<>(row._2._1,row._2._2));
+		step10 = step10.sortByKey(false);
+		System.out.println("step10:");
+		step10.collect().forEach(System.out::println);
+		
+		//System.out.println("ChapterRDD:");
+		//chapterRDD.collect().forEach(System.out::println);
 		
 		sc.close();
 	}
