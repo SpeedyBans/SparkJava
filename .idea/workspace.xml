@@ -56,20 +56,7 @@
       <recent name="SparkJava" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.KeywordRankingWithoutBoringWords">
-    <configuration name="InnerJoinExample" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="SparkJava.InnerJoinExample" />
-      <module name="SparkJava" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="SparkJava.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Application.SecondHighestSalaryPerDepartment">
     <configuration name="KeywordRankingWithoutBoringWords" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="SparkJava.KeywordRankingWithoutBoringWords" />
       <module name="SparkJava" />
@@ -109,6 +96,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SecondHighestSalaryPerDepartment" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="SparkJava.SecondHighestSalaryPerDepartment" />
+      <module name="SparkJava" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="SparkJava.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ViewingFigures" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="SparkJava.ViewingFigures" />
       <module name="SparkJava" />
@@ -124,11 +124,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.SecondHighestSalaryPerDepartment" />
         <item itemvalue="Application.KeywordRankingWithoutBoringWords" />
         <item itemvalue="Application.ViewingFigures" />
         <item itemvalue="Application.ReadFileAsDataset" />
         <item itemvalue="Application.LeftJoinExampleWithOptional" />
-        <item itemvalue="Application.InnerJoinExample" />
       </list>
     </recent_temporary>
   </component>
@@ -176,26 +176,26 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="539" y="154" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1596398929978" />
-    <state width="1921" height="984" key="GridCell.Tab.0.bottom" timestamp="1598653098656">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1537" height="767" key="GridCell.Tab.0.bottom" timestamp="1599301275561">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1537" height="768" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1597660295695" />
-    <state width="1921" height="984" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1598653098656" />
-    <state width="1921" height="984" key="GridCell.Tab.0.center" timestamp="1598653098656">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1537" height="767" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1599301275561" />
+    <state width="1921" height="984" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599300814608" />
+    <state width="1537" height="767" key="GridCell.Tab.0.center" timestamp="1599301275561">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1537" height="768" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1597660295694" />
-    <state width="1921" height="984" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1598653098656" />
-    <state width="1921" height="984" key="GridCell.Tab.0.left" timestamp="1598653098656">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1537" height="767" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1599301275561" />
+    <state width="1921" height="984" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599300814608" />
+    <state width="1537" height="767" key="GridCell.Tab.0.left" timestamp="1599301275560">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1537" height="768" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1597660295694" />
-    <state width="1921" height="984" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1598653098656" />
-    <state width="1921" height="984" key="GridCell.Tab.0.right" timestamp="1598653098656">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1537" height="767" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1599301275560" />
+    <state width="1921" height="984" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599300814608" />
+    <state width="1537" height="767" key="GridCell.Tab.0.right" timestamp="1599301275561">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1537" height="768" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1597660295694" />
-    <state width="1921" height="984" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1598653098656" />
+    <state width="1537" height="767" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1599301275561" />
+    <state width="1921" height="984" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599300814608" />
     <state width="1921" height="984" key="GridCell.Tab.1.bottom" timestamp="1598653098656">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
